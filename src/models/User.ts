@@ -4,10 +4,11 @@ import bcrypt from 'bcryptjs';
 
 interface IUser extends Document{
     email: string,
-    password: string,
-    password_reset_token: string,
-    password_reset_expires: Date,
+    password?: string,
+    password_reset_token?: string,
+    password_reset_expires?: Date,
     is_admin: boolean,
+    __v?: number,
 }
 
 const UserSchema = new mongoose.Schema<IUser>({
@@ -27,6 +28,7 @@ const UserSchema = new mongoose.Schema<IUser>({
     },
     is_admin: {
         type: Boolean,
+        default: false,
     },
 });
 
@@ -39,6 +41,9 @@ UserSchema.pre('save', function (next) {
         if (err) return next(err);
 
         // hash the password using our new salt
+        if (!this.password) {
+            return next(err);
+        }
         bcrypt.hash(this.password, salt, (error, hash) => {
             if (error) return next(error);
             // override the cleartext password with the hashed one
