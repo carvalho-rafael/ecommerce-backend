@@ -9,6 +9,7 @@ mongoose.connect('mongodb://admin:admin@localhost:27017/eshop', {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useFindAndModify: false,
+    useCreateIndex: true,
     authSource: 'admin',
 });
 
