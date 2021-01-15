@@ -16,14 +16,10 @@ export default {
         if (!name || !description) {
             return res.status(400);
         }
+
         try {
             const newUser = await Product.create({
-                name,
-                image,
-                description,
-                price,
-                amount,
-                category,
+                name, image, description, price, amount, category,
             });
             return res.status(201).json(newUser);
         } catch (error) {

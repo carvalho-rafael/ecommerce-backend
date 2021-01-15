@@ -9,10 +9,14 @@ export default {
         if (!email || !password) {
             return res.status(400);
         }
-        const newUser = await User.create({
-            email, password,
-        });
 
-        return res.status(201).json(newUser);
+        try {
+            const newUser = await User.create({
+                email, password,
+            });
+            return res.status(201).json(newUser);
+        } catch (error) {
+            return res.status(500).json(error);
+        }
     },
 };

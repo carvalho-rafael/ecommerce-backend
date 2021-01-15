@@ -12,12 +12,14 @@ export default {
         if (!name || !description) {
             return res.status(400);
         }
-        const newUser = await ProductCategory.create({
-            name,
-            description,
-        });
-
-        return res.status(201).json(newUser);
+        try {
+            const newUser = await ProductCategory.create({
+                name, description,
+            });
+            return res.status(201).json(newUser);
+        } catch (error) {
+            return res.status(500).json(error);
+        }
     },
 
     async index(req: Request, res: Response): Promise<Response> {
