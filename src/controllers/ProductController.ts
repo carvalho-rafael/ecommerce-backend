@@ -6,16 +6,13 @@ export default {
     async create(req: Request, res: Response): Promise<Response> {
         const {
             name,
-            image,
             description,
             price,
             amount,
             category,
         } = req.body;
 
-        if (!name || !description) {
-            return res.status(400);
-        }
+        const image = req.file.filename;
 
         try {
             const newUser = await Product.create({
