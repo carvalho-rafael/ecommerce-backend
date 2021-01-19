@@ -8,7 +8,11 @@ interface jwtPayload {
     exp: number
 }
 
-export default function authMiddleware(req: Request, res: Response, next: NextFunction): any {
+export default function authMiddleware(
+    req: Request,
+    res: Response,
+    next: NextFunction,
+): Response | void {
     const { authorization } = req.headers;
 
     if (!authorization) {
